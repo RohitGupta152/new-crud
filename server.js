@@ -24,6 +24,14 @@ mongoose.connect(process.env.MONGODB_URI)
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Server is healthy 🚀'
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 }); 
