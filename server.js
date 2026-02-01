@@ -28,7 +28,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
-    message: 'Server is Online 🚀'
+    message: 'Server is healthy 🚀'
   });
 });
 
