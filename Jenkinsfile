@@ -4,11 +4,12 @@ pipeline {
   environment {
     IMAGE_NAME = "new-crud-api"
     CONTAINER_NAME = "new-crud-api"
+    PORT = "3000"
   }
 
   stages {
 
-    stage('Checkout from GitHub (main)') {
+    stage('Checkout from GitHub') {
       steps {
         git branch: 'main',
             url: 'https://github.com/RohitGupta152/new-crud.git'
@@ -24,13 +25,14 @@ pipeline {
     stage('Deploy Container') {
       steps {
         sh '''
-          docker rm -f $CONTAINER_NAME || true
+          docker stop $CONTAINER_NAME || true
+          docker rm $CONTAINER_NAME || true
 
           docker run -d \
             --name $CONTAINER_NAME \
-            -p 3000:3000 \
+            -p 3001:3000 \
             -e PORT=3000 \
-            -e MONGODB_URI="$MONGODB_URI" \
+            -e MONGODB_URI="mongodb://localhost:27017/newcrud" \
             $IMAGE_NAME
         '''
       }
@@ -39,7 +41,7 @@ pipeline {
 
   post {
     success {
-      echo "✅ Deployed from GitHub main branch successfully"
+      echo "✅ Deployment successful"
     }
     failure {
       echo "❌ Deployment failed"
