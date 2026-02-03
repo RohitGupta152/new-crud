@@ -30,7 +30,7 @@ pipeline {
 
           docker run -d \
             --name $CONTAINER_NAME \
-            -p 3001:3000 \
+            -p 3000:3000 \
             -e PORT=3000 \
             -e MONGODB_URI="mongodb+srv://rohit703077:VYQUlU0TncWaXqFT@cluster0.e7rgt.mongodb.net/CRUD?retryWrites=true&w=majority" \
             $IMAGE_NAME
